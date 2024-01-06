@@ -31,6 +31,23 @@ def validate_zip_code(zip_code):
     return False
 
 
+# Function to test if required fields are present in the message body
+def validate_required_fields(body):
+    if (
+        "username" in body
+        and "email" in body
+        and "first_name" in body
+        and "last_name" in body
+        and "age" in body
+        and "city" in body
+        and "state" in body
+        and "zip" in body
+        and "country" in body
+    ):
+        return True
+    return False
+
+
 # Lambda function to publish user to a queue
 def lambda_handler(event, context):
     print(event)
@@ -43,6 +60,10 @@ def lambda_handler(event, context):
 
         # Validate zip code
         if not validate_zip_code(body['zip']):
+            return {'statusCode': 400}
+
+        # Validate required fields
+        if not validate_required_fields(body):
             return {'statusCode': 400}
 
         send_message_to_sqs(body)
