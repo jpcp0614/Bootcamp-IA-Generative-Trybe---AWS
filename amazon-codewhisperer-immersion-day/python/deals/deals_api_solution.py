@@ -1,6 +1,6 @@
-import boto3
+# import boto3
 import json
-import base64
+# import base64
 
 deals = [
     {
@@ -26,6 +26,7 @@ deals = [
     }
 ]
 
+
 # Function to convert json to xml
 def json_to_xml(json_data):
     xml = '<deals>'
@@ -39,6 +40,7 @@ def json_to_xml(json_data):
         xml += '</deal>'
     xml += '</deals>'
     return xml
+
 
 # Lambda function to query deals info
 def lambda_handler(event, context):
