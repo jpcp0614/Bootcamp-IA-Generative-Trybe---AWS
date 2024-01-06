@@ -24,6 +24,13 @@ def validate_email(email):
     return False
 
 
+# Function to test if a string contains a five-digit US zip code
+def validate_zip_code(zip_code):
+    if re.match(r"^\d{5}$", zip_code):
+        return True
+    return False
+
+
 # Lambda function to publish user to a queue
 def lambda_handler(event, context):
     print(event)
@@ -32,6 +39,10 @@ def lambda_handler(event, context):
 
         # Validate email
         if not validate_email(body['email']):
+            return {'statusCode': 400}
+
+        # Validate zip code
+        if not validate_zip_code(body['zip']):
             return {'statusCode': 400}
 
         send_message_to_sqs(body)
