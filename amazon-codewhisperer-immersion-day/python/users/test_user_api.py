@@ -1,11 +1,11 @@
-import json 
+import json
 from unittest import TestCase
-import user_api 
+import user_api
 from unittest.mock import patch, MagicMock
 
 
 class TestUserApi(TestCase):
-    
+
     @patch('user_api.send_message_to_sqs', MagicMock)
     def test_valid_message_should_return_200(self):
         body = {
